@@ -17,6 +17,7 @@
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         .container {
@@ -127,6 +128,7 @@
         .section {
             padding: 80px 0;
             background: white;
+            width: 100%;
         }
 
         .section:nth-child(even) {
@@ -293,65 +295,38 @@
             left: 0;
         }
 
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
+        /* Education Section */
+        .education-item {
             background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
             border-radius: 10px;
-            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            border-left: 4px solid #667eea;
         }
 
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+        .degree {
+            font-size: 1.2rem;
+            font-weight: bold;
             color: #333;
+            margin-bottom: 0.5rem;
         }
 
-        .project-description {
+        .school {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-duration {
             color: #666;
-            margin-bottom: 1rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
         }
 
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tag {
-            background: #667eea;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .coursework {
+            color: #888;
+            font-size: 0.9rem;
         }
 
         /* Contact Section */
@@ -387,6 +362,7 @@
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .form-group {
@@ -408,6 +384,7 @@
             border-radius: 5px;
             font-size: 1rem;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
         .form-group input:focus,
@@ -444,6 +421,8 @@
             color: white;
             text-align: center;
             padding: 2rem 0;
+            width: 100%;
+            position: relative;
         }
 
         .social-links {
@@ -457,56 +436,11 @@
             color: white;
             font-size: 1.5rem;
             transition: color 0.3s;
+            text-decoration: none;
         }
 
         .social-links a:hover {
             color: #667eea;
-        }
-
-        /* Education Section */
-        .education-item {
-            background: white;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-left: 4px solid #667eea;
-        }
-
-        .degree {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .school {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .edu-duration {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
-
-        .coursework {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Success/Error Messages */
@@ -527,6 +461,18 @@
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Mobile Responsive */
@@ -570,6 +516,18 @@
                 height: 200px;
                 font-size: 80px;
             }
+        }
+
+        /* Fix for any layout issues */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Ensure all sections are properly contained */
+        .section {
+            clear: both;
+            position: relative;
         }
     </style>
 </head>
@@ -846,6 +804,14 @@
                 <form class="contact-form" id="contactForm">
                     <div id="messageContainer"></div>
                     <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="from_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="from_email" required>
+                    </div>
+                    <div class="form-group">
                         <label for="subject">Subject *</label>
                         <input type="text" id="subject" name="subject" required>
                     </div>
@@ -906,17 +872,24 @@
             
             // Get form data
             const formData = new FormData(this);
-            const templateParams = 
-            {
-                from_name: formData.get('from_name'), 
-                from_email: formData.get('from_email'), 
-                subject: formData.get('subject'), 
+            
+            // Debug: Log form data
+            console.log("=== FORM DATA DEBUG ===");
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: "${value}"`);
+            }
+            console.log("=== END DEBUG ===");
+            
+            const templateParams = {
+                from_name: formData.get('from_name'),
+                from_email: formData.get('from_email'),
+                subject: formData.get('subject'),
                 message: formData.get('message'),
                 to_name: 'Hareesh Tumtum'
             };
             
-            // Real EmailJS call - Replace with your actual credentials
-            emailjs.send('service_1vsjiac', 'template_hds0es7', templateParams, '')
+            // Real EmailJS call - Replace YOUR_TEMPLATE_ID_HERE and YOUR_PUBLIC_KEY_HERE with actual values
+            emailjs.send('service_1vsjiac', 'YOUR_TEMPLATE_ID_HERE', templateParams, 'YOUR_PUBLIC_KEY_HERE')
                 .then(function(response) {
                     showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon!', 'success');
                     document.getElementById('contactForm').reset();
@@ -939,7 +912,7 @@
             messageContainer.innerHTML = '';
             messageContainer.appendChild(messageDiv);
             
-            // Hide message after 5 seconds
+            // Hide message after 8 seconds
             setTimeout(() => {
                 messageDiv.style.display = 'none';
             }, 8000);
@@ -983,16 +956,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            emailjs.init("9OxuJ-ESMoiSC7ksp"); // Replace with your actual public key
+            emailjs.init("YOUR_PUBLIC_KEY_HERE"); // Replace with your actual public key
         })();
     </script>
 </body>
-</html> for="name">Full Name *</label>
-                        <input type="text" id="name" name="from_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="from_email" required>
-                    </div>
-                    <div class="form-group">
-                        <label
+</html>
