@@ -906,10 +906,11 @@
             
             // Get form data
             const formData = new FormData(this);
-            const templateParams = {
-                from_name: formData.get('name'),
-                from_email: formData.get('email'),
-                subject: formData.get('subject'),
+            const templateParams = 
+            {
+                from_name: formData.get('from_name'), 
+                from_email: formData.get('from_email'), 
+                subject: formData.get('subject'), 
                 message: formData.get('message'),
                 to_name: 'Hareesh Tumtum'
             };
@@ -987,11 +988,11 @@
     </script>
 </body>
 </html> for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="from_name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="from_email" required>
                     </div>
                     <div class="form-group">
                         <label
