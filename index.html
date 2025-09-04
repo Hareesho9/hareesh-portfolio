@@ -846,14 +846,6 @@
                 <form class="contact-form" id="contactForm">
                     <div id="messageContainer"></div>
                     <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
                         <label for="subject">Subject *</label>
                         <input type="text" id="subject" name="subject" required>
                     </div>
@@ -919,17 +911,11 @@
                 from_email: formData.get('email'),
                 subject: formData.get('subject'),
                 message: formData.get('message'),
-                to_name: 'Hareesh Tumtum',
-                to_email: 'hareeshtumtum@gmail.com'
+                to_name: 'Hareesh Tumtum'
             };
             
-            // EmailJS integration - Replace with your actual service details
-            // First, sign up at emailjs.com and get your credentials
-            
-            // For now, simulate email sending
-            // Replace this setTimeout with actual EmailJS call:
-            /*
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_PUBLIC_KEY')
+            // Real EmailJS call - Replace with your actual credentials
+            emailjs.send('service_1vsjiac', 'template_hds0es7', templateParams, '')
                 .then(function(response) {
                     showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon!', 'success');
                     document.getElementById('contactForm').reset();
@@ -940,15 +926,6 @@
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
                 });
-            */
-            
-            // Temporary simulation - remove when EmailJS is set up
-            setTimeout(() => {
-                showMessage('Thank you for your message! I\'ll get back to you soon. (Note: Set up EmailJS for real email functionality)', 'success');
-                this.reset();
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-            }, 2000);
         });
 
         function showMessage(text, type) {
@@ -1001,14 +978,20 @@
         });
     </script>
 
-    <!-- EmailJS CDN - Uncomment when setting up real email functionality -->
-    <!--
+    <!-- EmailJS CDN -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+            emailjs.init("9OxuJ-ESMoiSC7ksp"); // Replace with your actual public key
         })();
     </script>
-    -->
 </body>
-</html>
+</html> for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label
