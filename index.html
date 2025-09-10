@@ -859,7 +859,7 @@
         </div>
     </footer>
 
-    <script>
+<script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -909,21 +909,15 @@
                 to_name: 'Hareesh Tumtum'
             };
             
-            // EmailJS call - REPLACE 'YOUR_TEMPLATE_ID_HERE' with your actual Template ID
+            // EmailJS call with your correct template ID
             emailjs.send('service_1vsjiac', 'template_hds0es7', templateParams, 'hWPDx6etNWZ5oXb9WlWZI')
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon!', 'success');
                     document.getElementById('contactForm').reset();
-                    // Hide setup notice after successful send
-                    document.getElementById('setupNotice').style.display = 'none';
                 }, function(error) {
                     console.log('FAILED...', error);
-                    if (error.status === 400) {
-                        showMessage('Configuration Error: Please update the Template ID in the code. Check the console for details.', 'error');
-                    } else {
-                        showMessage('Sorry, there was an error sending your message. Please try again or contact me directly at hareeshtumtum@gmail.com', 'error');
-                    }
+                    showMessage('Sorry, there was an error sending your message. Please try again or contact me directly at hareeshtumtum@gmail.com', 'error');
                 })
                 .finally(function() {
                     submitBtn.disabled = false;
@@ -985,7 +979,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            emailjs.init("hWPDx6etNWZ5oXb9WlWZI"); // Your public key
+            emailjs.init("hWPDx6etNWZ5oXb9WlWZI");
         })();
     </script>
 </body>
