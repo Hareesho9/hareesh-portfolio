@@ -17,7 +17,7 @@
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
         .container {
@@ -67,7 +67,6 @@
             color: #667eea;
         }
 
-        /* Mobile menu toggle */
         .mobile-toggle {
             display: none;
             background: none;
@@ -463,6 +462,29 @@
             border: 1px solid #f5c6cb;
         }
 
+        /* Setup Notice */
+        .setup-notice {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .setup-notice h4 {
+            margin-bottom: 10px;
+            color: #664d03;
+        }
+
+        .setup-notice code {
+            background: #f8f9fa;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #d63384;
+            font-family: monospace;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -518,13 +540,11 @@
             }
         }
 
-        /* Fix for any layout issues */
         html, body {
             width: 100%;
             overflow-x: hidden;
         }
 
-        /* Ensure all sections are properly contained */
         .section {
             clear: both;
             position: relative;
@@ -803,6 +823,17 @@
 
                 <form class="contact-form" id="contactForm">
                     <div id="messageContainer"></div>
+                    
+                    <!-- Setup Notice -->
+                    <div class="setup-notice" id="setupNotice">
+                        <h4>📧 EmailJS Configuration Required</h4>
+                        <p>To enable this contact form, you need to replace the template ID:</p>
+                        <p>1. Go to your EmailJS dashboard → Email Templates</p>
+                        <p>2. Find your template and copy the Template ID</p>
+                        <p>3. Replace <code>YOUR_TEMPLATE_ID_HERE</code> in the code with your actual Template ID</p>
+                        <p><strong>Current:</strong> Using placeholder - form will not work until updated</p>
+                    </div>
+
                     <div class="form-group">
                         <label for="name">Full Name *</label>
                         <input type="text" id="name" name="from_name" required>
@@ -888,13 +919,21 @@
                 to_name: 'Hareesh Tumtum'
             };
             
-            // Real EmailJS call - Replace YOUR_TEMPLATE_ID_HERE and YOUR_PUBLIC_KEY_HERE with actual values
-            emailjs.send('service_1vsjiac', 'hWPDx6etNWZ5oXb9WlWZI', templateParams, 'hWPDx6etNWZ5oXb9WlWZI')
+            // EmailJS call - REPLACE 'YOUR_TEMPLATE_ID_HERE' with your actual Template ID
+            emailjs.send('service_1vsjiac', 'YOUR_TEMPLATE_ID_HERE', templateParams, 'hWPDx6etNWZ5oXb9WlWZI')
                 .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
                     showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon!', 'success');
                     document.getElementById('contactForm').reset();
+                    // Hide setup notice after successful send
+                    document.getElementById('setupNotice').style.display = 'none';
                 }, function(error) {
-                    showMessage('Sorry, there was an error sending your message. Please try again or contact me directly at hareeshtumtum@gmail.com', 'error');
+                    console.log('FAILED...', error);
+                    if (error.status === 400) {
+                        showMessage('Configuration Error: Please update the Template ID in the code. Check the console for details.', 'error');
+                    } else {
+                        showMessage('Sorry, there was an error sending your message. Please try again or contact me directly at hareeshtumtum@gmail.com', 'error');
+                    }
                 })
                 .finally(function() {
                     submitBtn.disabled = false;
@@ -956,7 +995,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            emailjs.init("hWPDx6etNWZ5oXb9WlWZI"); // Replace with your actual public key
+            emailjs.init("hWPDx6etNWZ5oXb9WlWZI"); // Your public key
         })();
     </script>
 </body>
